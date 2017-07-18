@@ -22,11 +22,21 @@ class EditorComponentsExample extends Component {
 
         this.state = {
             rowData: this.createRowData(),
-            columnDefs: this.createColumnDefs()
+            columnDefs: this.createColumnDefs(),
+            jsonReturnedValue: null
         };
 
         this.onGridReady = this.onGridReady.bind(this);
     }
+
+    componentDidMount() {
+    fetch('https://localhost:8000/tree/1000')
+      .then(response => response.json())
+      .then(json => {
+        this.setState({ jsonReturnedValue });
+      });
+  }
+
 
     onGridReady(params) {
         this.gridApi = params.api;
@@ -64,11 +74,7 @@ class EditorComponentsExample extends Component {
     }
 
     createRowData() {
-        return [
-          {"name":"b","employeeId":1005,"parentId":1000,"joinDate":"2012-04-24",},
-          {"name":"e","employeeId":1035,"parentId":1000,"joinDate":"2014-07-12"},
-          {"name":"t","employeeId":2001,"parentId":1000,"joinDate":null},
-        ];
+        return jsonReturnedValue;
     }
 
     render() {
