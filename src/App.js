@@ -31,14 +31,28 @@ class EditorComponentsExample extends Component {
     }
 
     componentDidMount() {
-    fetch('https://localhost:8000/tree/1000')
-      .then(response => response.json())
-      .then(json => {
-        this.setState({jsonReturnedValue});
-      });
-  }
+        this.jsonList();
+      }
 
+      jsonList() {
+         fetch('http://localhost:8080/phonetool/tree/1000')
+        .then(function(response) {
+          this.setState({
+            jsonReturnedValue: response.json()
+          })
+        })
+      }
 
+  sendData(){
+    fetch('http://localhost:8080/phonetool/createtree', {
+    method: 'POST',
+    headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+   },
+   body: JSON.stringify({jsonReturnedValue})
+   })}
+   
     onGridReady(params) {
         this.gridApi = params.api;
         this.columnApi = params.columnApi;
