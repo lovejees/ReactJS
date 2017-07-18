@@ -20,10 +20,11 @@ class EditorComponentsExample extends Component {
     constructor(props) {
         super(props);
 
+
         this.state = {
             rowData: this.createRowData(),
             columnDefs: this.createColumnDefs(),
-            jsonReturnedValue: null
+            jsonReturnedValue: []
         };
 
         this.onGridReady = this.onGridReady.bind(this);
@@ -33,7 +34,7 @@ class EditorComponentsExample extends Component {
     fetch('https://localhost:8000/tree/1000')
       .then(response => response.json())
       .then(json => {
-        this.setState({ jsonReturnedValue });
+        this.setState({jsonReturnedValue});
       });
   }
 
@@ -74,7 +75,7 @@ class EditorComponentsExample extends Component {
     }
 
     createRowData() {
-        return jsonReturnedValue;
+        return this.state.jsonReturnedValue;
     }
 
     render() {
